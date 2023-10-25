@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
 const rowConfig = [
@@ -12,6 +12,8 @@ function App() {
   const [isResetting, setIsResetting] = useState(false);
   const [mapper, setMapper] = useState([]);
 
+  const countRef = useRef();
+
   const onReset = (updatedMapper) => {
     for (let i = 0; i < updatedMapper.length; i++) {
       setIsResetting(true);
@@ -21,7 +23,7 @@ function App() {
         transformedState[parseInt(parentIndex)][parseInt(childIndex)].color =
           "white";
         setConfig(transformedState);
-        if (i === 6) {
+        if (i === updatedMapper.length - 1) {
           clearInterval(interval);
           setMapper([]);
           setIsResetting(false);
@@ -31,8 +33,10 @@ function App() {
   };
 
   useEffect(() => {
+    countRef.current = 0;
     const transformedState = rowConfig.map((item, parentIndex) => {
       return item.map((box, childIndex) => {
+        countRef.current = box ? countRef.current + 1 : countRef.current;
         return {
           isSelected: box,
           boxIdentifier: `${parentIndex}_${childIndex}`,
@@ -42,6 +46,8 @@ function App() {
     });
     setConfig(transformedState);
   }, []);
+
+  console.log(countRef);
 
   const onItemClicked = (parentIndex, childIndex) => {
     if (isResetting) {
@@ -53,7 +59,7 @@ function App() {
       copyConfig[parentIndex][childIndex].color = "green";
       const updatedMapper = [...mapper, `${boxIndex}`];
       setMapper(updatedMapper);
-      updatedMapper.length === 7 && onReset(updatedMapper);
+      updatedMapper.length === countRef.current && onReset(updatedMapper);
     } else {
       copyConfig[parentIndex][childIndex].color = "white";
       setMapper((prev) => {
