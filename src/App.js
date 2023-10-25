@@ -12,26 +12,23 @@ function App() {
   const [isResetting, setIsResetting] = useState(false);
   const [mapper, setMapper] = useState([]);
 
-  useEffect(() => {
-    if (mapper.length === 7) {
-      for (let i = 0; i < mapper.length; i++) {
-        setIsResetting(true);
-        const interval = setTimeout(() => {
-          const transformedState = [...config];
-          const [parentIndex, childIndex] = mapper[i].split("_");
-          transformedState[parseInt(parentIndex)][parseInt(childIndex)].color =
-            "white";
-          setConfig(transformedState);
-          if (i === 6) {
-            clearInterval(interval);
-            setMapper([]);
-            setIsResetting(false);
-          }
-        }, 1000 * i);
-      }
+  const onReset = (updatedMapper) => {
+    for (let i = 0; i < updatedMapper.length; i++) {
+      setIsResetting(true);
+      const interval = setTimeout(() => {
+        const transformedState = [...config];
+        const [parentIndex, childIndex] = updatedMapper[i].split("_");
+        transformedState[parseInt(parentIndex)][parseInt(childIndex)].color =
+          "white";
+        setConfig(transformedState);
+        if (i === 6) {
+          clearInterval(interval);
+          setMapper([]);
+          setIsResetting(false);
+        }
+      }, 1000 * i);
     }
-  }, [mapper]);
-
+  };
 
   useEffect(() => {
     const transformedState = rowConfig.map((item, parentIndex) => {
@@ -46,7 +43,6 @@ function App() {
     setConfig(transformedState);
   }, []);
 
-
   const onItemClicked = (parentIndex, childIndex) => {
     if (isResetting) {
       return;
@@ -55,7 +51,9 @@ function App() {
     const boxIndex = `${parentIndex}_${childIndex}`;
     if (copyConfig[parentIndex][childIndex].color === "white") {
       copyConfig[parentIndex][childIndex].color = "green";
-      setMapper((prev) => [...prev, `${boxIndex}`]);
+      const updatedMapper = [...mapper, `${boxIndex}`];
+      setMapper(updatedMapper);
+      updatedMapper.length === 7 && onReset(updatedMapper);
     } else {
       copyConfig[parentIndex][childIndex].color = "white";
       setMapper((prev) => {
