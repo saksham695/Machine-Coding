@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import "./styles.css";
+import React, { useState } from "react";
 
-function App() {
+const Star = React.memo(({ selected, onClick }) => (
+  <div className="star" onClick={onClick}>
+    {selected ? <>&#9733;</> : <>&#9734;</>}
+  </div>
+));
+
+export default function App() {
+  const [stars, setStars] = useState([false, false, false, false, false]);
+
+  const handleStarClick = (starIndex) => {
+    let modifiedState = stars.map((_, index) => index <= starIndex);
+    setStars(modifiedState);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="starsContainer">
+        {stars.map((selected, index) => (
+          <Star
+            key={index}
+            selected={selected}
+            onClick={() => handleStarClick(index)}
+          />
+        ))}
+      </div>
     </div>
   );
 }
-
-export default App;
