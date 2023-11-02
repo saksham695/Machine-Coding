@@ -1,25 +1,34 @@
-import logo from './logo.svg';
+import { inputStyles } from './utils';
+import TypeaheadSearch from './components/TypeaheadSearch';
+import SuggestionsList from './components/SuggestionsList';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+   const transformData = (data) => data.results;
+   const promise = async (query, signal) => 
+      await fetch(`https://swapi.dev/api/films?search=${query}`, {signal});
+
+   return (
+      <div className="App">
+         <h1>Typeahead Search/ Autocomplete Suggestions</h1>
+
+         <TypeaheadSearch
+            inputId="movie-input"
+            placeholderText="search for movies..."
+            debounceDelayTime={500}
+            autoComplete={true}
+            styling={{
+               input: inputStyles
+            }}
+            loader={() => <div className="loader">Loading...</div>}
+            renderItems={(items, activeIndex) => <SuggestionsList items={items} activeIndex={activeIndex} />}
+            noResultsMessage={() => <div className="no-results">No results found...</div>}
+            errorMessage={(errMsg) => <div className="err-msg">{errMsg}</div>}
+            transformData={transformData}
+            promise={promise}
+         />
+      </div>
+   );
 }
 
 export default App;
