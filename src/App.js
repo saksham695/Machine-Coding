@@ -15,7 +15,7 @@ function App() {
          <TypeaheadSearch
             inputId="movie-input"
             placeholderText="search for movies..."
-            debounceDelayTime={400}
+            debounceDelayTime={500}
             autoComplete={true}
             styling={{
                input: inputStyles
