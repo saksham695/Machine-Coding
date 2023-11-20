@@ -1,0 +1,21 @@
+.popoverContainer {
+   position: relative;
+   width: max-content;
+   margin: 20px;
+}
+
+.popover {
+   position: absolute;
+   display: none;
+   border: 1px solid #423e3e;
+   border-radius: 4px;
+   padding: 5px;
+   flex-wrap: nowrap;
+   min-width: 100px;
+   font-size: 13px;
+   z-index: 5;
+}
+
+.popoverContainer:hover .popover {
+   display: initial;
+}
