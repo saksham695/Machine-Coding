@@ -6,14 +6,16 @@ const Carousel = ({images, showArrows, showIndicators, autoPlay, interval, infin
    const intervalRef = useRef();
 
    useEffect(() => {
-      intervalRef.current = setInterval(() => {
-         setCurrIndex(prevIndex => {
-            if(prevIndex === images.length - 1) {
-               if(infinite) return 0;
-            }
-            return prevIndex + 1;
-         });
-      }, interval);
+      if(autoPlay) {
+         intervalRef.current = setInterval(() => {
+            setCurrIndex(prevIndex => {
+               if(prevIndex === images.length - 1) {
+                  if(infinite) return 0;
+               }
+               return prevIndex + 1;
+            });
+         }, interval);
+      }
 
       return () => {
          if(intervalRef.current) clearInterval(intervalRef.current);
