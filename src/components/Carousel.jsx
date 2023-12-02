@@ -11,6 +11,10 @@ const Carousel = ({images, showArrows, showIndicators, autoPlay, interval, infin
             setCurrIndex(prevIndex => {
                if(prevIndex === images.length - 1) {
                   if(infinite) return 0;
+                  else {
+                     clearInterval(intervalRef.current);
+                     return images.length - 1;
+                  }
                }
                return prevIndex + 1;
             });
