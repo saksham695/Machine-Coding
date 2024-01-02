@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
 const pollingItems = [
   {
@@ -17,7 +17,7 @@ const pollingItems = [
     key: "CSS",
     name: "CSS",
     isChecked: false,
-    voteCount: 24,
+    voteCount: 84,
   },
   {
     key: "React",
@@ -88,25 +88,9 @@ const App = () => {
               <div style={{ marginRight: "10px" }}>{name}</div>
             </div>
             {isShowPollPercentage && (
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <div
-                  style={{
-                    width: "80%",
-                    backgroundColor: "#ddd",
-                    borderRadius: "5px",
-                    height: "10px",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: `${isChecked ? percentage : percentage}%`,
-                      backgroundColor: "#4caf50",
-                      borderRadius: "5px",
-                      height: "100%",
-                    }}
-                  />
-                </div>
-                <div style={{ marginLeft: "10px" }}>
+              <div style={{ display: "flex" }}>
+                <div style={{ marginLeft: "10px", width: "100%" }}>
+                  <Slider percentage={percentage} />
                   {percentage.toFixed(2)}%
                 </div>
               </div>
@@ -114,6 +98,51 @@ const App = () => {
           </div>
         );
       })}
+    </div>
+  );
+};
+
+export const Slider = ({ percentage }) => {
+  const showPercentageRef = useRef(0);
+  const [, forceUpdate] = useState();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      showPercentageRef.current += 1;
+      if (showPercentageRef.current <= percentage) {
+        // Update the UI only if the current percentage is less than or equal to the desired percentage
+        forceUpdate({}); // Trigger a re-render
+      } else {
+        clearInterval(interval);
+      }
+    }, 10);
+
+    return () => clearInterval(interval); // Cleanup the interval on component unmount
+  }, [percentage]);
+
+
+
+  const currentPercentage = Math.min(showPercentageRef.current, percentage);
+
+  return (
+    <div
+      style={{
+        backgroundColor: "lightgrey",
+        height: "16px",
+        width: "80%",
+        flex: 1,
+        borderRadius: "5px",
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: "green",
+          width: `${currentPercentage}%`,
+          height: "8px",
+          padding: "4px",
+          borderRadius: "5px",
+        }}
+      ></div>
     </div>
   );
 };
