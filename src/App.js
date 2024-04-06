@@ -22,9 +22,21 @@ function App() {
     clearInterval(timer.current);
   };
 
+  const formatTime = (timeInSeconds) => {
+    const hours = Math.floor(timeInSeconds / 3600);
+    const minutes = Math.floor((timeInSeconds % 3600) / 60);
+    const seconds = timeInSeconds % 60;
+
+    const formattedTime = `${hours.toString().padStart(2, "0")}:${minutes
+      .toString()
+      .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+
+    return formattedTime;
+  };
+
   return (
     <div className="App">
-      <div>{counter}</div>
+      <div>{formatTime(counter)}</div>
       <button onClick={onStartClick}>start</button>
       <button onClick={onStopClicked}>stop</button>
       <button onClick={onPauseClicked}>pause</button>
