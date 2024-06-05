@@ -2,6 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useScrollDirection } from "./useScrollDirection";
+import { useScrollDirectionOp } from "./useScrollDirectionOp";
 
 const myArray = [];
 
@@ -11,7 +12,8 @@ for (let i = 0; i < 100; i++) {
 
 function App() {
   const [data, setData] = useState(myArray);
-  const { direction } = useScrollDirection();
+  // const { direction } = useScrollDirection();
+  const {direction} = useScrollDirectionOp()
 
   console.log("Parent direction",direction)
 
