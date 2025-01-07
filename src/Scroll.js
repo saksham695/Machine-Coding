@@ -11,7 +11,6 @@ const PAGE_SIZE = 10;
 const START_PAGE = 0;
 
 const getPageData = (start, end) => {
-    console.log(start,end)
   return my_array.slice(start, end);
 };
 
@@ -22,16 +21,21 @@ export const Scroll = () => {
     getPageData(pageRef.current * PAGE_SIZE, pageRef.current + 1 * PAGE_SIZE)
   );
 
-  console.log(data)
-
   useEffect(() => {
     const observer = new IntersectionObserver((enteries) => {
-        if(enteries[0].isIntersecting){
-            pageRef.current+=1
-            setData((prev)=>{
-                return [...prev,...getPageData(pageRef.current * PAGE_SIZE, (pageRef.current + 1) * PAGE_SIZE)]
-            })
-        }
+     
+      if (enteries[0].isIntersecting) {
+        pageRef.current += 1;
+        setData((prev) => {
+          return [
+            ...prev,
+            ...getPageData(
+              pageRef.current * PAGE_SIZE,
+              (pageRef.current + 1) * PAGE_SIZE
+            ),
+          ];
+        });
+      }
     });
     observer.observe(scrollRef.current);
     return () => {
@@ -56,10 +60,7 @@ export const Scroll = () => {
           </div>
         );
       })}
-      <div
-        ref={scrollRef}
-       
-      />
+      <div ref={scrollRef} />
     </div>
   );
 };
