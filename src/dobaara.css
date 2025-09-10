@@ -1,0 +1,95 @@
+/* Dobaara Mobile Web Theme */
+:root{
+  --bg: #0f172a;
+  --bg-subtle: #0b1225;
+  --surface: #101828;
+  --card: #0b1223;
+  --elev: rgba(2,6,23,0.6);
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --brandFrom: #fb7185; /* rose */
+  --brandTo: #8b5cf6;   /* violet */
+  --accentFrom: #34d399; /* emerald */
+  --accentTo: #60a5fa;   /* blue */
+  --radius: 18px;
+  --radius-lg: 24px;
+}
+
+html, body, #root { height: 100%; }
+body { margin: 0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; background: #FAF3E7; color: var(--text); }
+
+/* Device Shell */
+.db-shell { min-height: 100vh; display: grid; place-items: center; padding: 24px; }
+.db-device { position: relative; width: 390px; max-width: calc(100vw - 32px); height: 800px; max-height: calc(100vh - 32px); border-radius: 42px; background: linear-gradient(180deg, #0b1020, #04070f); box-shadow: 0 40px 100px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,0.06); overflow: hidden; }
+.db-device::before{ content:""; position:absolute; left:50%; top:8px; transform:translateX(-50%); width:120px; height:6px; border-radius:6px; background:rgba(255,255,255,0.08);}
+.db-device-body { position: absolute; inset: 14px; border-radius: 34px; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0)); backdrop-filter: blur(0px); }
+
+/* Containers */
+.db-container { max-width: 100%; margin: 0 auto; padding: 20px 16px calc(env(safe-area-inset-bottom, 0px) + 132px); }
+.db-card { background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03)); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0,0,0,.25); overflow: hidden; }
+.db-card-pad { padding: 18px; }
+
+/* Typography */
+.db-title { font-size: 22px; font-weight: 800; margin: 0 0 6px; letter-spacing: .2px; }
+.db-sub { color: var(--muted); margin: 0 0 18px; font-size: 13px; }
+.db-brand { font-size: 15px; font-weight: 900; letter-spacing: .3px; }
+.db-tagline { color: var(--muted); font-size: 11px; }
+
+/* Buttons */
+.db-btn { border: 0; border-radius: 12px; padding: 12px 14px; font-weight: 700; cursor: pointer; color: var(--text); background: rgba(255,255,255,0.06); box-shadow: inset 0 -1px 0 rgba(255,255,255,0.06); }
+.db-btn-primary { color: #0b1020; background: linear-gradient(135deg, var(--brandFrom), var(--brandTo)); }
+.db-btn-ghost { background: rgba(255,255,255,0.04); color: var(--text); }
+
+/* Inputs */
+.db-input { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); outline: none; background: rgba(255,255,255,0.03); color: var(--text); }
+.db-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.db-list { display: grid; gap: 12px; }
+.db-actions { display: flex; gap: 10px; }
+
+/* Bottom Nav (inside device) */
+.db-nav { position: absolute; left: 16px; right: 16px; bottom: 16px; display: flex; gap: 4px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.07); border-radius: 999px; padding: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.35); backdrop-filter: blur(8px); z-index: 100; }
+.db-tab { display: inline-flex; align-items: center; gap: 6px; padding: 8px 10px; border-radius: 999px; text-decoration: none; color: var(--muted); font-weight: 600; font-size: 11px; }
+.db-tab.active { background: linear-gradient(135deg, rgba(251,113,133,0.9), rgba(139,92,246,0.9)); color: white; border: 1px solid rgba(255,255,255,0.12); }
+.db-tab-icon { width: 8px; height: 8px; background: currentColor; display: inline-block; border-radius: 999px; }
+.db-tab-label { line-height: 1; }
+
+/* Onboarding */
+.db-onboard { display: grid; place-items: center; min-height: calc(100% - 80px); text-align: center; }
+.db-logo { display: inline-grid; place-items: center; width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, rgba(251,113,133,.25), rgba(139,92,246,.25)); margin-bottom: 16px; box-shadow: inset 0 0 30px rgba(255,255,255,0.06); }
+.db-infinity { width: 64px; height: 32px; border: 6px solid #ec4899; border-radius: 32px; position: relative; }
+.db-infinity::after { content: ""; position: absolute; right: -26px; top: -6px; width: 64px; height: 32px; border: 6px solid #8b5cf6; border-radius: 32px; }
+
+/* Swipe */
+.db-swipe { display: grid; gap: 16px; }
+.db-swipe-card { position: relative; border-radius: 22px; overflow: hidden; height: 460px; box-shadow: 0 16px 50px rgba(0,0,0,.35); }
+.db-swipe-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.db-swipe-info { position: absolute; left: 0; right: 0; bottom: 0; padding: 16px; background: linear-gradient(180deg, rgba(2,6,23,0) 0%, rgba(2,6,23,.85) 100%); color: #fff; }
+.db-chip { display: inline-flex; padding: 6px 10px; background: rgba(255,255,255,0.22); border-radius: 999px; margin-right: 6px; font-size: 12px; }
+.db-swipe-actions { display: flex; justify-content: center; gap: 12px; }
+
+/* Cards & Grids */
+.db-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+.db-list { display: grid; gap: 12px; }
+
+/* Chat */
+.db-chat { display: grid; grid-template-rows: 1fr auto; min-height: 60vh; }
+.db-bubbles { display: grid; gap: 8px; padding: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-lg); }
+.db-bubble { max-width: 72%; padding: 10px 12px; border-radius: 16px; color: #0b1020; }
+.db-bubble.me { margin-left: auto; background: linear-gradient(135deg, #a7f3d0, #93c5fd); }
+.db-bubble.them { margin-right: auto; background: #fff; }
+.db-chat-input { display: flex; gap: 8px; margin-top: 10px; }
+
+/* Chat specifics */
+.db-bubble { position: relative; }
+.db-bubble .db-bubble-meta { font-size: 10px; opacity: .7; margin-top: 4px; color: #0b1020; }
+.db-bubble.them .db-bubble-meta { color: #334155; }
+.db-bubble.me { box-shadow: 0 4px 14px rgba(16,185,129,.25); }
+.db-bubble.them { box-shadow: 0 4px 14px rgba(148,163,184,.18); }
+
+.db-chat textarea.db-input { resize: none; min-height: 40px; max-height: 120px; }
+
+/* Topbar */
+.db-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+
+/* Utilities */
+.hidden { display: none; } 
